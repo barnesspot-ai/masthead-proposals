@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Investment Proposal | Masthead Financial Planning</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#222a3e;--navy-mid:#2e3a52;--silver:#a7b8bc;--silver-lt:#d0dde0;
+  --orange:#f78f1e;--orange-lt:#fef0de;--grey:#e5e5e5;
+  --white:#ffffff;--page:#f4f5f7;
+  --ink:#1a1f2e;--ink-mid:#3a4255;--ink-soft:#6b7590;--rule:#dde2e8;
+  --confirm-bg:#fff3e0;--confirm-border:#f78f1e;--confirm-text:#7a4200;
+  --nav-h:64px;--gap:96px;
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:'Barlow',sans-serif;font-weight:300;color:var(--ink);background:var(--page);line-height:1.75}
+nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);background:var(--navy);display:flex;align-items:center;justify-content:space-between;padding:0 48px;z-index:100;border-bottom:1px solid rgba(255,255,255,0.06)}
+.nav-brand{font-weight:600;font-size:14px;color:var(--white);letter-spacing:0.08em;text-transform:uppercase;display:flex;align-items:center;gap:6px}
+.nav-brand-sub{font-weight:300;color:var(--silver);font-size:13px;letter-spacing:0.04em;text-transform:none}
+.nav-sep{color:rgba(255,255,255,0.2)}
+.nav-links{display:flex;gap:28px}
+.nav-links a{color:rgba(255,255,255,0.50);text-decoration:none;font-size:12px;letter-spacing:0.10em;text-transform:uppercase;font-weight:400;transition:color 0.2s}
+.nav-links a:hover{color:var(--orange)}
+.nav-badge{background:rgba(247,143,30,0.15);border:1px solid rgba(247,143,30,0.40);color:var(--orange);font-size:11px;letter-spacing:0.10em;text-transform:uppercase;padding:4px 12px;border-radius:2px}
+.nav-back{color:rgba(255,255,255,0.40);text-decoration:none;font-size:12px;display:flex;align-items:center;gap:6px;transition:color 0.2s}
+.nav-back:hover{color:var(--orange)}
+.cover{min-height:100vh;background:var(--navy);display:flex;flex-direction:column;justify-content:flex-end;padding:var(--nav-h) 0 0;position:relative;overflow:hidden}
+.cover-geo{position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 90% 15%,rgba(167,184,188,0.08) 0%,transparent 55%),radial-gradient(ellipse 35% 50% at 10% 85%,rgba(247,143,30,0.06) 0%,transparent 50%)}
+.cover-shape{position:absolute;bottom:0;right:0;width:0;height:0;border-style:solid;border-width:0 0 260px 420px;border-color:transparent transparent rgba(255,255,255,0.03) transparent}
+.cover-inner{position:relative;z-index:1;padding:80px 80px 0;display:grid;grid-template-columns:1fr 360px;gap:60px;align-items:end}
+.cover-label{font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--orange);margin-bottom:18px;font-weight:400}
+.cover-name{font-family:'Playfair Display',serif;font-size:clamp(44px,5.5vw,72px);font-weight:400;color:var(--white);line-height:1.05;margin-bottom:14px}
+.cover-subtitle{font-size:17px;font-weight:300;color:var(--silver);margin-bottom:44px}
+.cover-rule{width:48px;height:2px;background:var(--orange);margin-bottom:36px}
+.cover-meta{display:flex;flex-direction:column}
+.cover-meta-row{display:flex;align-items:baseline;gap:16px;border-bottom:1px solid rgba(255,255,255,0.07);padding:13px 0}
+.cover-meta-label{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.28);min-width:96px;font-weight:400}
+.cover-meta-value{font-size:14px;color:rgba(255,255,255,0.78);font-weight:300}
+.cover-sidebar{padding-bottom:80px;display:flex;flex-direction:column;justify-content:flex-end}
+.cover-stat{border-top:1px solid rgba(255,255,255,0.08);padding:22px 0}
+.cover-stat-label{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.28);margin-bottom:6px;font-weight:400}
+.cover-stat-value{font-family:'Playfair Display',serif;font-size:26px;font-weight:400;color:var(--white)}
+.cover-stat-sub{font-size:12px;color:rgba(255,255,255,0.35);margin-top:2px}
+.cover-bottom{position:relative;z-index:1;padding:36px 80px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,255,255,0.07);margin-top:52px}
+.cover-footer-text{font-size:12px;color:rgba(255,255,255,0.38)}
+.cover-footer-text span{color:rgba(255,255,255,0.65);font-weight:400}
+.scroll-hint{display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:0.10em;text-transform:uppercase;color:rgba(255,255,255,0.22)}
+.scroll-circle{width:26px;height:26px;border-radius:50%;border:1px solid rgba(255,255,255,0.14);display:flex;align-items:center;justify-content:center;font-size:10px;color:rgba(255,255,255,0.22)}
+main{max-width:1100px;margin:0 auto;padding:var(--gap) 48px}
+.s-label{font-size:10px;letter-spacing:0.20em;text-transform:uppercase;color:var(--orange);margin-bottom:10px;font-weight:400}
+.s-title{font-family:'Playfair Display',serif;font-size:clamp(26px,3vw,38px);font-weight:400;color:var(--navy);line-height:1.2;margin-bottom:12px}
+.s-rule{width:40px;height:2px;background:var(--orange);margin-bottom:32px}
+.s-body{font-size:15px;line-height:1.85;color:var(--ink-mid)}
+.s-body p{margin-bottom:16px}
+.section{margin-bottom:var(--gap)}
+.section-inner{display:grid;grid-template-columns:220px 1fr;gap:56px;align-items:start}
+.section-aside{padding-top:2px}
+.section-num{font-family:'Playfair Display',serif;font-size:64px;font-weight:400;color:rgba(34,42,62,0.06);line-height:1;margin-bottom:14px}
+.section-nav-label{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-soft);font-weight:400}
+.card{background:var(--white);border:1px solid var(--rule);border-radius:6px;padding:24px 28px;margin-bottom:18px}
+.card-title{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--silver);margin-bottom:14px;font-weight:400}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:24px}
+.stat-card{background:var(--navy);border-radius:6px;padding:18px 20px}
+.stat-label{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--silver);margin-bottom:6px;font-weight:400}
+.stat-value{font-family:'Playfair Display',serif;font-size:22px;color:var(--white)}
+.stat-note{font-size:11px;color:rgba(255,255,255,0.35);margin-top:3px}
+.bullet-list{list-style:none;margin:8px 0 12px}
+.bullet-list li{padding:10px 0 10px 20px;border-bottom:1px solid var(--rule);font-size:14px;color:var(--ink-mid);position:relative}
+.bullet-list li:first-child{border-top:1px solid var(--rule)}
+.bullet-list li::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:0;height:0;border-style:solid;border-width:5px 0 5px 8px;border-color:transparent transparent transparent var(--orange)}
+.reason-item{padding:16px 0;border-bottom:1px solid var(--rule)}
+.reason-item:last-child{border-bottom:none;padding-bottom:0}
+.reason-title{font-size:14px;font-weight:500;color:var(--navy);margin-bottom:3px}
+.reason-body{font-size:13px;color:var(--ink-soft);line-height:1.7}
+.chart-wrap{background:var(--white);border:1px solid var(--rule);border-radius:6px;padding:24px;margin-bottom:18px}
+.chart-title{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:18px;font-weight:400}
+.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:14px}
+.chart-sub{font-size:11px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:0.10em;margin-bottom:10px;font-weight:400}
+.chart-canvas-wrap{position:relative;height:210px}
+.comparison-wrap{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+.comp-col{background:var(--white);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.comp-col.recommended{border-color:var(--navy);border-width:2px}
+.comp-header{padding:16px 22px;border-bottom:1px solid var(--rule)}
+.comp-col.current .comp-header{background:var(--grey)}
+.comp-col.recommended .comp-header{background:var(--navy)}
+.comp-header-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:4px;font-weight:400}
+.comp-col.current .comp-header-label{color:var(--ink-soft)}
+.comp-col.recommended .comp-header-label{color:rgba(255,255,255,0.45)}
+.comp-header-name{font-family:'Playfair Display',serif;font-size:17px}
+.comp-col.current .comp-header-name{color:var(--navy)}
+.comp-col.recommended .comp-header-name{color:var(--white)}
+.comp-badge{display:inline-block;background:var(--orange);color:var(--white);font-size:10px;letter-spacing:0.10em;text-transform:uppercase;padding:2px 8px;border-radius:2px;margin-top:6px;font-weight:500}
+.comp-row{display:flex;justify-content:space-between;align-items:center;padding:11px 22px;border-bottom:1px solid var(--rule);font-size:13px}
+.comp-row:last-child{border-bottom:none}
+.comp-row-label{color:var(--ink-soft)}
+.comp-row-val{color:var(--ink);font-weight:400}
+.comp-col.recommended .comp-row-val{color:var(--navy);font-weight:500}
+.risk-factor{margin-bottom:22px}
+.risk-factor:last-child{margin-bottom:0}
+.risk-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.risk-name{font-size:13px;font-weight:400;color:var(--ink)}
+.risk-level{font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--silver);font-weight:400}
+.risk-level.high{color:var(--orange)}
+.risk-track{height:3px;background:var(--grey);border-radius:2px;overflow:hidden}
+.risk-fill{height:100%;border-radius:2px;background:var(--navy)}
+.risk-fill.orange{background:linear-gradient(90deg,var(--orange),#c96f00)}
+.risk-note{font-size:12px;color:var(--ink-soft);margin-top:6px;line-height:1.6}
+.timeline{list-style:none;padding-left:0;position:relative}
+.timeline::before{content:'';position:absolute;left:14px;top:8px;bottom:8px;width:1px;background:var(--rule)}
+.timeline-item{display:flex;gap:22px;margin-bottom:28px;position:relative}
+.t-dot{width:30px;height:30px;min-width:30px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:var(--white);position:relative;z-index:1}
+.t-phase{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--orange);margin-bottom:3px;font-weight:400}
+.t-title{font-size:15px;font-weight:500;color:var(--navy);margin-bottom:5px}
+.t-body{font-size:13px;color:var(--ink-soft);line-height:1.7}
+.callout{background:var(--confirm-bg);border-left:3px solid var(--orange);padding:14px 18px;border-radius:0 4px 4px 0;margin:18px 0;font-size:13px;color:var(--confirm-text);line-height:1.7}
+.callout strong{color:#5a3000}
+.tag-confirm{display:inline;background:var(--confirm-bg);border-left:2px solid var(--orange);color:var(--confirm-text);font-size:11px;padding:1px 6px;border-radius:0 2px 2px 0}
+footer{background:var(--navy);padding:56px 80px;color:rgba(255,255,255,0.45);font-size:12px;line-height:1.9}
+.footer-rule{width:36px;height:2px;background:var(--orange);margin-bottom:22px}
+footer strong{color:rgba(255,255,255,0.70);font-weight:400}
+.footer-disc-item{margin-bottom:10px}
+.sig-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin-top:36px;padding-top:36px;border-top:1px solid rgba(255,255,255,0.08)}
+.sig-line{border-bottom:1px solid rgba(255,255,255,0.20);height:36px;margin-bottom:7px}
+.sig-label{font-size:10px;letter-spacing:0.10em;text-transform:uppercase;color:rgba(255,255,255,0.26);font-weight:400}
+.not-found{min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;text-align:center;padding:48px}
+.not-found-icon{font-size:48px;margin-bottom:8px}
+.not-found-title{font-family:'Playfair Display',serif;font-size:32px;color:var(--navy)}
+.not-found-body{font-size:15px;color:var(--ink-soft);max-width:400px;line-height:1.7}
+.not-found-link{display:inline-block;margin-top:8px;background:var(--navy);color:var(--white);text-decoration:none;padding:10px 24px;border-radius:4px;font-size:13px;letter-spacing:0.06em}
+@media print{nav{display:none}body{background:white}.cover,footer{-webkit-print-color-adjust:exact;print-color-adjust:exact}.section{page-break-inside:avoid}}
+@media(max-width:768px){nav{padding:0 20px}.nav-links{display:none}.cover-inner{grid-template-columns:1fr;padding:40px 24px 0}.cover-sidebar{display:none}.cover-bottom{padding:24px;flex-direction:column;gap:12px}main{padding:56px 24px}.section-inner{grid-template-columns:1fr;gap:20px}.section-num{font-size:36px}.comparison-wrap,.chart-grid{grid-template-columns:1fr}footer{padding:40px 24px}.sig-grid{grid-template-columns:1fr;gap:20px}}
+</style>
+</head>
+<body>
+<nav>
+  <div style="display:flex;align-items:center;gap:20px">
+    <a class="nav-back" href="/">← All Proposals</a>
+    <div class="nav-sep" style="color:rgba(255,255,255,0.15)">|</div>
+    <div class="nav-brand">Masthead <span class="nav-sep">·</span><span class="nav-brand-sub">Financial Planning</span></div>
+  </div>
+  <div class="nav-links">
+    <a href="#summary">Summary</a>
+    <a href="#situation">Situation</a>
+    <a href="#strategy">Strategy</a>
+    <a href="#comparison">Comparison</a>
+    <a href="#risk">Risk</a>
+    <a href="#implementation">Implementation</a>
+  </div>
+  <div class="nav-badge" id="nav-status"></div>
+</nav>
+<div id="app"></div>
+
+<script>
+// ── PROPOSAL REGISTRY ─────────────────────────────────────────────
+// Add a new entry here for each new client proposal.
+// Key = URL slug (must match exactly, lowercase, hyphens)
+const PROPOSALS = {
+
+  "marc-barnes": {
+    clientName:"Marc Barnes",proposalTitle:"i2 Growth Solutions — Portfolio Recommendation",
+    adviserName:"Marc Barnes",firmName:"Masthead Financial Planning",fspNumber:"[FSP NUMBER]",
+    date:"May 2026",status:"Adviser Review Draft",
+    portfolioValue:"R1 000 000",incomeGoal:"R50 000 / month",riskProfile:"Moderately Aggressive",
+    dfmName:"i2 Solutions",portfolioName:"i2 Growth Solutions",offshoreAlloc:"25%",localAlloc:"75%",existingProvider:"Morningstar",
+    executiveSummary:[
+      "Mr Marc Barnes presents with an investment portfolio valued at R1 000 000, a Moderately Aggressive risk profile, and a monthly income goal of R50 000. Following a thorough financial needs analysis, it is recommended that Mr Barnes' portfolio be invested into the i2 Growth Solutions strategy, managed by i2 Solutions as the appointed Discretionary Fund Manager.",
+      "The recommended structure provides meaningful exposure to high-quality, diversified growth assets across both local and offshore markets. A 25% offshore allocation is included to provide geographic diversification and rand-hedge exposure.",
+      "[ASSUMPTION] The R1 000 000 is a discretionary investment and not subject to retirement fund restrictions. [ADVISER TO CONFIRM]"
+    ],
+    currentSituation:{
+      narrative:"Mr Barnes' existing portfolio is currently held with Morningstar. Following a review of the current structure, the following observations have been noted:",
+      holdings:["Allan Gray Balanced Fund — R850 000 [ADVISER TO CONFIRM]","Stanlib Core Bond Fund — R150 000 [ADVISER TO CONFIRM]","No offshore exposure currently held [ADVISER TO CONFIRM]"],
+      concerns:["Portfolio may not be optimally aligned to confirmed Moderately Aggressive risk profile [ADVISER TO CONFIRM]","No current offshore allocation — geographic concentration risk to South Africa","Monthly income goal of R50 000 from R1 000 000 represents a 60% annual drawdown — sustainability requires urgent discussion [ADVISER TO CONFIRM]","Fee structure comparison warranted against recommended solution [ADVISER TO CONFIRM]"]
+    },
+    recommendedStrategy:{
+      narrative:"It is recommended that Mr Barnes' portfolio of R1 000 000 be invested into the i2 Growth Solutions mandate, managed by i2 Solutions as the appointed Discretionary Fund Manager, to be held via [LISP PLATFORM — ADVISER TO CONFIRM].",
+      reasons:[
+        {title:"Mandate alignment",body:"Portfolio constructed specifically for Moderately Aggressive investors targeting above-inflation real returns over a full market cycle."},
+        {title:"Active DFM management",body:"Specialist investment team handles rebalancing, manager selection, and tactical allocation — removing the burden from adviser and client."},
+        {title:"Geographic diversification",body:"Structured 25% offshore allocation with disciplined implementation, providing rand-hedge exposure and access to global growth themes."},
+        {title:"Transparency",body:"Defined mandate, regular reporting, and clear fee structure. Adviser retains full oversight."}
+      ]
+    },
+    geoAllocation:{labels:["South Africa (75%)","Offshore (25%)"],data:[75,25],colors:["#222a3e","#f78f1e"]},
+    assetAllocation:{labels:["SA Equity (45%)","Global Equity (25%)","Bonds (15%)","Property (10%)","Cash (5%)"],data:[45,25,15,10,5],colors:["#222a3e","#f78f1e","#a7b8bc","#4a6070","#e5e5e5"]},
+    comparisonRows:[
+      {label:"Mandate",current:"[ADVISER TO CONFIRM]",recommended:"Moderately Aggressive Growth"},
+      {label:"Risk level",current:"[ADVISER TO CONFIRM]",recommended:"Moderately Aggressive"},
+      {label:"Offshore %",current:"0% [CONFIRM]",recommended:"25%"},
+      {label:"DFM fee",current:"[ADVISER TO CONFIRM]",recommended:"[ADVISER TO CONFIRM]"},
+      {label:"Platform fee",current:"[ADVISER TO CONFIRM]",recommended:"[ADVISER TO CONFIRM]"},
+      {label:"Total cost",current:"[ADVISER TO CONFIRM]",recommended:"[ADVISER TO CONFIRM]"},
+      {label:"Liquidity",current:"[ADVISER TO CONFIRM]",recommended:"[ADVISER TO CONFIRM]"}
+    ],
+    feeComparison:{labels:["DFM Fee","Platform Fee","Adviser Fee","Total"],current:[0.75,0.50,1.00,2.25],recommended:[0.65,0.40,1.00,2.05],note:"[ADVISER TO REPLACE WITH ACTUAL FEE DATA] — illustrative values only."},
+    risks:[
+      {name:"Market & equity risk",level:"Moderate–High",pct:72,color:"default",note:"Growth assets will experience volatility. Short-term drawdowns are expected and should not trigger reactive decisions."},
+      {name:"Currency risk",level:"Moderate",pct:50,color:"default",note:"The 25% offshore allocation introduces rand/foreign currency exposure. Managed within the DFM mandate."},
+      {name:"Drawdown sustainability",level:"High — Action Required",pct:88,color:"orange",note:"Monthly income goal relative to portfolio size requires immediate adviser review. [ADVISER TO CONFIRM full income picture]"},
+      {name:"Inflation risk",level:"Low–Moderate",pct:35,color:"default",note:"Growth mandate is designed to outperform inflation over a full market cycle."},
+      {name:"Liquidity risk",level:"Low",pct:20,color:"default",note:"Discretionary investment structure provides reasonable liquidity. [CONFIRM platform liquidity terms]"}
+    ],
+    implementationSteps:[
+      {title:"Confirm full financial picture",phase:"Adviser action",body:"Verify income goal context, total asset base, existing product details, and tax position before proceeding. [ADVISER TO CONFIRM]"},
+      {title:"Finalise and sign Record of Advice",phase:"Compliance",body:"Complete the ROA, ensuring all fees are disclosed and all items are resolved. Obtain client signature before any transaction is processed."},
+      {title:"Verify FICA documentation",phase:"FICA",body:"Confirm FICA documents are current and on file. New investment application requires valid identity and address verification. [ADVISER TO CONFIRM]"},
+      {title:"Manage existing portfolio switch",phase:"Transition",body:"Confirm CGT position, any exit penalties, and expected settlement timeline (typically 3–10 business days). No funds moved without signed written instruction. [ADVISER TO CONFIRM]"},
+      {title:"Submit investment application",phase:"Application",body:"Submit application via [LISP PLATFORM]. Ensure i2 Solutions mandate is correctly selected and all application fields are complete."},
+      {title:"Confirm and onboard client",phase:"Onboarding",body:"Provide Mr Barnes with transaction confirmation, onboarding documentation, and schedule first portfolio review date."}
+    ],
+    disclosures:[
+      "This proposal has been prepared for adviser review and is not for direct client distribution until all [ADVISER TO CONFIRM] items have been verified and completed.",
+      "This document does not constitute a guarantee of investment returns. Past performance is not indicative of future results. All investments carry risk, including the risk of loss of capital.",
+      "This proposal has been prepared in accordance with the Financial Advisory and Intermediary Services Act (FAIS) and the Treating Customers Fairly (TCF) framework.",
+      "The adviser is obligated to act in the client's best interest at all times. All fees must be fully disclosed prior to client signature of the Record of Advice."
+    ]
+  },
+
+  "demo-client": {
+    clientName:"Demo Client",proposalTitle:"Portfolio Recommendation",
+    adviserName:"Marc Barnes",firmName:"Masthead Financial Planning",fspNumber:"[FSP NUMBER]",
+    date:"May 2026",status:"Draft",
+    portfolioValue:"R[AMOUNT]",incomeGoal:"R[AMOUNT] / month",riskProfile:"[RISK PROFILE]",
+    dfmName:"[DFM NAME]",portfolioName:"[PORTFOLIO NAME]",offshoreAlloc:"[X]%",localAlloc:"[Y]%",existingProvider:"[CURRENT PROVIDER]",
+    executiveSummary:[
+      "[CLIENT NAME] presents with an investment portfolio valued at [AMOUNT]. Following a thorough financial needs analysis, it is recommended that the portfolio be invested into the [PORTFOLIO NAME] strategy, managed by [DFM NAME] as the appointed Discretionary Fund Manager.",
+      "The recommended structure provides meaningful exposure to growth assets across both local and offshore markets. [ADVISER TO CONFIRM full recommendation rationale]"
+    ],
+    currentSituation:{
+      narrative:"[CLIENT NAME]'s existing portfolio is currently held with [CURRENT PROVIDER]. The following observations have been noted:",
+      holdings:["[Fund name] — R[Amount] [ADVISER TO CONFIRM]","[Fund name] — R[Amount] [ADVISER TO CONFIRM]","[ADVISER TO CONFIRM all holdings]"],
+      concerns:["[Concern 1] [ADVISER TO CONFIRM]","[Concern 2] [ADVISER TO CONFIRM]","[Concern 3] [ADVISER TO CONFIRM]"]
+    },
+    recommendedStrategy:{
+      narrative:"It is recommended that [CLIENT NAME]'s portfolio be invested into the [PORTFOLIO NAME] mandate, managed by [DFM NAME], to be held via [LISP PLATFORM — ADVISER TO CONFIRM].",
+      reasons:[
+        {title:"Mandate alignment",body:"[Explain why this mandate suits the client's confirmed risk profile] [ADVISER TO CONFIRM]"},
+        {title:"Active DFM management",body:"[Explain DFM value proposition]"},
+        {title:"Geographic diversification",body:"[Explain offshore allocation rationale]"},
+        {title:"Transparency",body:"[Explain fee structure and adviser oversight]"}
+      ]
+    },
+    geoAllocation:{labels:["South Africa ([Y]%)","Offshore ([X]%)"],data:[75,25],colors:["#222a3e","#f78f1e"]},
+    assetAllocation:{labels:["SA Equity","Global Equity","Bonds","Property","Cash"],data:[45,25,15,10,5],colors:["#222a3e","#f78f1e","#a7b8bc","#4a6070","#e5e5e5"]},
+    comparisonRows:[
+      {label:"Mandate",current:"[ADVISER TO CONFIRM]",recommended:"[PORTFOLIO NAME]"},
+      {label:"Risk level",current:"[ADVISER TO CONFIRM]",recommended:"[RISK PROFILE]"},
+      {label:"Offshore %",current:"[ADVISER TO CONFIRM]",recommended:"[X]%"},
+      {label:"DFM fee",current:"[ADVISER TO CONFIRM]",recommended:"[ADVISER TO CONFIRM]"},
+      {label:"Platform fee",current:"[ADVISER TO CONFIRM]",recommended:"[ADVISER TO CONFIRM]"},
+      {label:"Total cost",current:"[ADVISER TO CONFIRM]",recommended:"[ADVISER TO CONFIRM]"},
+      {label:"Liquidity",current:"[ADVISER TO CONFIRM]",recommended:"[ADVISER TO CONFIRM]"}
+    ],
+    feeComparison:{labels:["DFM Fee","Platform Fee","Adviser Fee","Total"],current:[0.75,0.50,1.00,2.25],recommended:[0.65,0.40,1.00,2.05],note:"[ADVISER TO REPLACE WITH ACTUAL FEE DATA] — illustrative values only."},
+    risks:[
+      {name:"Market & equity risk",level:"Moderate–High",pct:70,color:"default",note:"[Describe equity/market risk] [ADVISER TO CONFIRM]"},
+      {name:"Currency risk",level:"Moderate",pct:50,color:"default",note:"[Describe offshore currency exposure]"},
+      {name:"Drawdown sustainability",level:"[ADVISER TO ASSESS]",pct:50,color:"orange",note:"[Assess income sustainability] [ADVISER TO CONFIRM]"},
+      {name:"Inflation risk",level:"Low–Moderate",pct:35,color:"default",note:"[Describe inflation risk management]"},
+      {name:"Liquidity risk",level:"Low",pct:20,color:"default",note:"[Confirm liquidity terms] [ADVISER TO CONFIRM]"}
+    ],
+    implementationSteps:[
+      {title:"Confirm full financial picture",phase:"Adviser action",body:"Verify income goal, total asset base, existing products, and tax position. [ADVISER TO CONFIRM]"},
+      {title:"Finalise and sign Record of Advice",phase:"Compliance",body:"Complete ROA with all fees disclosed. Obtain client signature before any transaction."},
+      {title:"Verify FICA documentation",phase:"FICA",body:"Confirm FICA documents are current and on file. [ADVISER TO CONFIRM]"},
+      {title:"Manage existing portfolio switch",phase:"Transition",body:"Confirm CGT position, exit penalties, and settlement timeline. No funds moved without signed instruction. [ADVISER TO CONFIRM]"},
+      {title:"Submit investment application",phase:"Application",body:"Submit via [LISP PLATFORM]. Confirm mandate selection and complete all application fields."},
+      {title:"Confirm and onboard client",phase:"Onboarding",body:"Provide client with transaction confirmation and schedule first review."}
+    ],
+    disclosures:[
+      "This proposal has been prepared for adviser review and must not be presented to the client until all [ADVISER TO CONFIRM] items have been verified and completed.",
+      "This document does not constitute a guarantee of investment returns. Past performance is not indicative of future results. All investments carry risk, including the risk of loss of capital.",
+      "This proposal has been prepared in accordance with the Financial Advisory and Intermediary Services Act (FAIS) and the Treating Customers Fairly (TCF) framework.",
+      "The adviser is obligated to act in the client's best interest at all times. All fees must be fully disclosed prior to client signature of the Record of Advice."
+    ]
+  }
+
+  // ── ADD NEW CLIENTS BELOW ─────────────────
+  // Copy the marc-barnes block, change the key and all data values.
+  // Example: "smith-retirement": { clientName: "Jane Smith", ... }
+
+};
+
+// ── Router ────────────────────────────────────────────────────────
+const slug = window.location.pathname.replace('/proposal/','').replace(/\/$/,'');
+const d = PROPOSALS[slug];
+if (!d) { renderNotFound(slug); } else { renderProposal(d); }
+
+// ── Helpers ───────────────────────────────────────────────────────
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const rt = s => esc(s)
+  .replace(/\[(ADVISER TO CONFIRM[^\]]*)\]/gi,m=>`<span class="tag-confirm">${m}</span>`)
+  .replace(/\[(ASSUMPTION[^\]]*)\]/gi,m=>`<span class="tag-confirm">${m}</span>`)
+  .replace(/\[(LISP[^\]]*)\]/gi,m=>`<span class="tag-confirm">${m}</span>`)
+  .replace(/\[(FSP[^\]]*)\]/gi,m=>`<span class="tag-confirm">${m}</span>`)
+  .replace(/\[(CONFIRM[^\]]*)\]/gi,m=>`<span class="tag-confirm">${m}</span>`);
+
+function renderNotFound(slug){
+  document.getElementById('nav-status').textContent='Not Found';
+  document.getElementById('app').innerHTML=`<div class="not-found" style="padding-top:64px"><div class="not-found-icon">🧭</div><div class="not-found-title">Proposal not found</div><div class="not-found-body">No proposal exists for <strong>"${esc(slug)}"</strong>. Check the URL or return to the proposals index.</div><a class="not-found-link" href="/">← Back to Proposals</a></div>`;
+}
+
+function renderProposal(d){
+  document.title=`${d.clientName} — Proposal | Masthead Financial Planning`;
+  document.getElementById('nav-status').textContent=d.status;
+  document.getElementById('app').innerHTML=`
+    <section class="cover">
+      <div class="cover-geo"></div><div class="cover-shape"></div>
+      <div class="cover-inner">
+        <div>
+          <div class="cover-label">Investment Proposal — Confidential</div>
+          <div class="cover-name">${esc(d.clientName)}</div>
+          <div class="cover-subtitle">${esc(d.portfolioName)}</div>
+          <div class="cover-rule"></div>
+          <div class="cover-meta">
+            ${[{l:'Adviser',v:d.adviserName},{l:'Date',v:d.date},{l:'Risk Profile',v:d.riskProfile},{l:'DFM',v:d.dfmName}].map(r=>`<div class="cover-meta-row"><div class="cover-meta-label">${r.l}</div><div class="cover-meta-value">${esc(r.v)}</div></div>`).join('')}
+          </div>
+        </div>
+        <div class="cover-sidebar">
+          ${[{l:'Portfolio Value',v:d.portfolioValue,s:'Discretionary investment'},{l:'Monthly Income Goal',v:d.incomeGoal,s:'Per month target'},{l:'Offshore Allocation',v:d.offshoreAlloc,s:'Geographic diversification'}].map(s=>`<div class="cover-stat"><div class="cover-stat-label">${s.l}</div><div class="cover-stat-value">${esc(s.v)}</div><div class="cover-stat-sub">${s.s}</div></div>`).join('')}
+        </div>
+      </div>
+      <div class="cover-bottom">
+        <div class="cover-footer-text">Prepared by <span>${esc(d.adviserName)}</span> &nbsp;·&nbsp; ${esc(d.firmName)} &nbsp;·&nbsp; FSP ${esc(d.fspNumber)}</div>
+        <div class="scroll-hint"><span>Review below</span><div class="scroll-circle">↓</div></div>
+      </div>
+    </section>
+    <main>
+      <section class="section" id="summary"><div class="section-inner"><div class="section-aside"><div class="section-num">01</div><div class="section-nav-label">Executive Summary</div></div><div>
+        <div class="s-label">Overview</div><h2 class="s-title">Executive Summary</h2><div class="s-rule"></div>
+        <div class="stats-grid">${[{l:'Portfolio Value',v:d.portfolioValue,n:'Discretionary investment'},{l:'Income Goal',v:d.incomeGoal,n:'Per month'},{l:'Risk Profile',v:d.riskProfile,n:'Via questionnaire',sm:true},{l:'Offshore',v:d.offshoreAlloc,n:'Geographic allocation'}].map(s=>`<div class="stat-card"><div class="stat-label">${s.l}</div><div class="stat-value" style="${s.sm?'font-size:15px;padding-top:5px':''}">${esc(s.v)}</div><div class="stat-note">${s.n}</div></div>`).join('')}</div>
+        <div class="s-body">${d.executiveSummary.map(p=>`<p>${rt(p)}</p>`).join('')}</div>
+        <div class="callout"><strong>Adviser note:</strong> All sections marked <span class="tag-confirm">[ADVISER TO CONFIRM]</span> must be completed before presenting to the client.</div>
+      </div></div></section>
+
+      <section class="section" id="situation"><div class="section-inner"><div class="section-aside"><div class="section-num">02</div><div class="section-nav-label">Current Situation</div></div><div>
+        <div class="s-label">Where we are today</div><h2 class="s-title">Current Situation</h2><div class="s-rule"></div>
+        <div class="s-body"><p>${rt(d.currentSituation.narrative)}</p></div>
+        <div class="card" style="margin-top:18px"><div class="card-title">Existing Holdings</div><ul class="bullet-list">${d.currentSituation.holdings.map(h=>`<li>${rt(h)}</li>`).join('')}</ul></div>
+        <div class="card"><div class="card-title">Identified Concerns</div><ul class="bullet-list">${d.currentSituation.concerns.map(c=>`<li>${rt(c)}</li>`).join('')}</ul></div>
+      </div></div></section>
+
+      <section class="section" id="strategy"><div class="section-inner"><div class="section-aside"><div class="section-num">03</div><div class="section-nav-label">Recommended Strategy</div></div><div>
+        <div class="s-label">The recommendation</div><h2 class="s-title">Recommended Strategy</h2><div class="s-rule"></div>
+        <div class="s-body"><p>${rt(d.recommendedStrategy.narrative)}</p></div>
+        <div class="chart-wrap" style="margin-top:20px">
+          <div class="chart-title">Proposed Asset Allocation</div>
+          <div class="chart-grid">
+            <div><div class="chart-sub">Geographic Split</div><div class="chart-canvas-wrap"><canvas id="geoChart"></canvas></div></div>
+            <div><div class="chart-sub">Asset Class Mix</div><div class="chart-canvas-wrap"><canvas id="assetChart"></canvas></div></div>
+          </div>
+          <div class="callout" style="margin-top:0"><strong>Note:</strong> Illustrative allocations. Replace with actual mandate data. <span class="tag-confirm">[ADVISER TO CONFIRM]</span></div>
+        </div>
+        <div class="card"><div class="card-title">Why ${esc(d.dfmName)}</div>${d.recommendedStrategy.reasons.map(r=>`<div class="reason-item"><div class="reason-title">${esc(r.title)}</div><div class="reason-body">${rt(r.body)}</div></div>`).join('')}</div>
+      </div></div></section>
+
+      <section class="section" id="comparison"><div class="section-inner"><div class="section-aside"><div class="section-num">04</div><div class="section-nav-label">Portfolio Comparison</div></div><div>
+        <div class="s-label">Current vs recommended</div><h2 class="s-title">Portfolio Comparison</h2><div class="s-rule"></div>
+        <div class="comparison-wrap">
+          <div class="comp-col current"><div class="comp-header"><div class="comp-header-label">Current provider</div><div class="comp-header-name">${esc(d.existingProvider)}</div></div>${d.comparisonRows.map(r=>`<div class="comp-row"><span class="comp-row-label">${esc(r.label)}</span><span class="comp-row-val">${rt(r.current)}</span></div>`).join('')}</div>
+          <div class="comp-col recommended"><div class="comp-header"><div class="comp-header-label">Recommended</div><div class="comp-header-name">${esc(d.dfmName)}</div><div class="comp-badge">Recommended</div></div>${d.comparisonRows.map(r=>`<div class="comp-row"><span class="comp-row-label">${esc(r.label)}</span><span class="comp-row-val">${rt(r.recommended)}</span></div>`).join('')}</div>
+        </div>
+        <div class="chart-wrap"><div class="chart-title">Fee Comparison — % per annum (illustrative)</div><div class="chart-canvas-wrap" style="height:170px"><canvas id="feeChart"></canvas></div><div style="font-size:11px;color:var(--ink-soft);margin-top:10px">${rt(d.feeComparison.note)}</div></div>
+      </div></div></section>
+
+      <section class="section" id="risk"><div class="section-inner"><div class="section-aside"><div class="section-num">05</div><div class="section-nav-label">Risk Considerations</div></div><div>
+        <div class="s-label">Understanding the risks</div><h2 class="s-title">Risk Considerations</h2><div class="s-rule"></div>
+        <div class="s-body"><p>${esc(d.clientName)} has been assessed as a <strong>${esc(d.riskProfile)}</strong> investor. This profile accepts meaningful short-term volatility in exchange for above-average long-term growth potential.</p></div>
+        <div class="card" style="margin-top:20px"><div class="card-title">Risk Factor Assessment</div>${d.risks.map(r=>`<div class="risk-factor"><div class="risk-header"><span class="risk-name">${esc(r.name)}</span><span class="risk-level ${r.color==='orange'?'high':''}">${esc(r.level)}</span></div><div class="risk-track"><div class="risk-fill ${r.color==='orange'?'orange':''}" style="width:${r.pct}%"></div></div><div class="risk-note">${rt(r.note)}</div></div>`).join('')}</div>
+        <div class="callout"><strong>Past performance disclaimer:</strong> Past performance is not indicative of future returns. All investments carry risk, including the risk of loss of capital.</div>
+      </div></div></section>
+
+      <section class="section" id="implementation"><div class="section-inner"><div class="section-aside"><div class="section-num">06</div><div class="section-nav-label">Implementation</div></div><div>
+        <div class="s-label">Getting it done</div><h2 class="s-title">Implementation Steps</h2><div class="s-rule"></div>
+        <ul class="timeline">${d.implementationSteps.map((s,i)=>`<li class="timeline-item"><div class="t-dot">${i+1}</div><div><div class="t-phase">${esc(s.phase)}</div><div class="t-title">${esc(s.title)}</div><div class="t-body">${rt(s.body)}</div></div></li>`).join('')}</ul>
+      </div></div></section>
+    </main>
+
+    <footer>
+      <div style="max-width:1100px;margin:0 auto">
+        <div class="footer-rule"></div>
+        ${d.disclosures.map((p,i)=>`<p class="footer-disc-item">${i===0?'<strong>Important disclosures.</strong> ':''}${rt(p)}</p>`).join('')}
+        <div class="sig-grid">
+          <div><div class="sig-line"></div><div class="sig-label">Client signature &amp; date</div></div>
+          <div><div class="sig-line"></div><div class="sig-label">Adviser signature &amp; date — ${esc(d.adviserName)}</div></div>
+        </div>
+      </div>
+    </footer>`;
+
+  const font="'Barlow',sans-serif";
+  const ticks={font:{family:font,size:11},color:'#6b7590'};
+  new Chart(document.getElementById('geoChart'),{type:'doughnut',data:{labels:d.geoAllocation.labels,datasets:[{data:d.geoAllocation.data,backgroundColor:d.geoAllocation.colors,borderWidth:0,hoverOffset:4}]},options:{responsive:true,maintainAspectRatio:false,cutout:'65%',plugins:{legend:{position:'right',labels:{font:{family:font,size:11},color:'#6b7590',boxWidth:10,padding:10}},tooltip:{callbacks:{label:c=>`${c.label}: ${c.parsed}%`}}}}});
+  new Chart(document.getElementById('assetChart'),{type:'doughnut',data:{labels:d.assetAllocation.labels,datasets:[{data:d.assetAllocation.data,backgroundColor:d.assetAllocation.colors,borderWidth:0,hoverOffset:4}]},options:{responsive:true,maintainAspectRatio:false,cutout:'65%',plugins:{legend:{position:'right',labels:{font:{family:font,size:11},color:'#6b7590',boxWidth:10,padding:10}},tooltip:{callbacks:{label:c=>`${c.label}: ${c.parsed}%`}}}}});
+  new Chart(document.getElementById('feeChart'),{type:'bar',data:{labels:d.feeComparison.labels,datasets:[{label:'Current (illustrative)',data:d.feeComparison.current,backgroundColor:'rgba(167,184,188,0.6)',borderRadius:3},{label:'Recommended (illustrative)',data:d.feeComparison.recommended,backgroundColor:'#222a3e',borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{position:'bottom',labels:{font:{family:font,size:11},color:'#6b7590',boxWidth:10}}},scales:{x:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{...ticks,callback:v=>v+'%'}},y:{grid:{display:false},ticks}}}});
+}
+</script>
+</body>
+</html>
